@@ -1,0 +1,202 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Kaivossota: skill-based 1v1 mining duel for operators</title>
+<style>
+	:root {
+		--bg: #0b0e14;
+		--panel: #131a24;
+		--line: #26313f;
+		--gold: #d6ae4c;
+		--gold-soft: #f0c75e;
+		--text: #e8edf4;
+		--dim: #93a1b3;
+	}
+	* { box-sizing: border-box; }
+	body {
+		margin: 0;
+		background: radial-gradient(1200px 700px at 50% -200px, #1d2432 0%, var(--bg) 60%);
+		color: var(--text);
+		font: 16px/1.6 system-ui, "Segoe UI", Roboto, Arial, sans-serif;
+	}
+	header {
+		padding: 46px 24px 26px;
+		text-align: center;
+		border-bottom: 1px solid var(--line);
+	}
+	.mark {
+		width: 74px; height: 74px; margin: 0 auto 16px;
+		border-radius: 50%;
+		border: 2px solid var(--gold);
+		display: flex; align-items: center; justify-content: center;
+		font-size: 30px;
+		background: #0a1119;
+	}
+	h1 { margin: 0 0 8px; font-size: 34px; letter-spacing: .04em; }
+	.tag { color: var(--dim); margin: 0 auto; max-width: 720px; }
+	.badges { margin-top: 18px; display: flex; gap: 10px; justify-content: center; flex-wrap: wrap; }
+	.badge {
+		border: 1px solid var(--line);
+		border-radius: 999px;
+		padding: 5px 13px;
+		font-size: 13px;
+		color: var(--gold-soft);
+		background: #101722;
+	}
+	main { max-width: 1180px; margin: 0 auto; padding: 30px 20px 60px; }
+	.split { display: grid; grid-template-columns: minmax(300px, 420px) 1fr; gap: 26px; align-items: start; }
+	@media (max-width: 900px) { .split { grid-template-columns: 1fr; } }
+	.frame { border: 1px solid var(--line); border-radius: 14px; overflow: hidden; background: #05070b; }
+	.bar { padding: 8px 12px; font-size: 13px; color: var(--dim); border-bottom: 1px solid var(--line); }
+	.dot { display: inline-block; width: 8px; height: 8px; border-radius: 50%; background: #4ec07a; margin-right: 6px; }
+	iframe { display: block; width: 100%; height: 760px; border: 0; background: #05070b; }
+	.panel { border: 1px solid var(--line); border-radius: 14px; background: var(--panel); padding: 20px 22px; margin-bottom: 20px; }
+	.panel h2 { margin: 0 0 10px; font-size: 19px; color: var(--gold-soft); }
+	.panel p { margin: 0 0 12px; }
+	table { width: 100%; border-collapse: collapse; font-size: 14px; }
+	td { padding: 8px 0; vertical-align: top; border-bottom: 1px solid var(--line); }
+	td:first-child { width: 38%; color: var(--dim); padding-right: 14px; }
+	tr:last-child td { border-bottom: 0; }
+	.controls { display: flex; flex-wrap: wrap; gap: 8px; margin-bottom: 12px; }
+	button {
+		font: inherit; font-size: 13px;
+		background: #1a2432; color: var(--text);
+		border: 1px solid var(--line); border-radius: 8px;
+		padding: 7px 12px; cursor: pointer;
+	}
+	button:hover { border-color: var(--gold); }
+	button.gold { border-color: var(--gold); color: var(--gold-soft); }
+	#log {
+		background: #080c12; border: 1px solid var(--line); border-radius: 8px;
+		padding: 12px; height: 230px; overflow: auto;
+		font: 12px/1.5 ui-monospace, Consolas, monospace; color: #b9c6d6;
+		white-space: pre-wrap; word-break: break-word;
+	}
+	.note { color: var(--dim); font-size: 14px; }
+	footer { border-top: 1px solid var(--line); padding: 22px; text-align: center; color: var(--dim); font-size: 13px; }
+	code { background: #0d131c; border: 1px solid var(--line); border-radius: 5px; padding: 1px 5px; font-size: 13px; }
+</style>
+</head>
+<body>
+
+<header>
+	<div class="mark">⛏</div>
+	<h1>KAIVOSSOTA</h1>
+	<p class="tag">A one against one mining duel decided by route planning, timing and nerve. Two machines dig from opposite ends of the same mine toward the ore in the middle. Ore only becomes money once it is carried back to your own shaft, and the two machines can destroy each other on the way.</p>
+	<div class="badges">
+		<span class="badge">Player versus player, house takes commission</span>
+		<span class="badge">No random source in the simulation</span>
+		<span class="badge">Replayable and checksummed rounds</span>
+		<span class="badge">Runs on a phone browser, no engine</span>
+		<span class="badge">EN / FI</span>
+	</div>
+</header>
+
+<main>
+<div class="split">
+	<div>
+		<div class="frame">
+			<div class="bar"><span class="dot"></span> live build, playable</div>
+			<iframe id="peli" src="index.html?lang=en" title="Kaivossota"></iframe>
+		</div>
+		<p class="note" style="margin-top:12px">Practice mode runs against a rule-based bot and needs no server. Stake matches connect to the match server, which runs the only authoritative simulation. On this static page there is no match server, and the game says so instead of hanging.</p>
+	</div>
+
+	<div>
+		<div class="panel">
+			<h2>Why an operator would want this</h2>
+			<p>Player versus player with a commission means the house is never a party to the match and carries no risk on the outcome. The margin is the commission on settled pots, and a draw refunds both stakes with no commission taken.</p>
+			<p>Because the simulation contains no random source, the usual RNG certification question changes shape. There is no generator to evaluate statistically. What has to be shown instead is that a recorded match replays to the same result, and that check runs from a command line in seconds against the stored input log.</p>
+			<p>Losing is not always zero. Ore banked at your own shaft is safe, so a player who mined well but lost the final fight still takes a share of the pot. That keeps a skill game playable for the losing side without the house paying for it.</p>
+		</div>
+
+		<div class="panel">
+			<h2>Integration API, live</h2>
+			<p>The game runs in an iframe and speaks a small postMessage protocol in both directions. The log below is the real traffic from the frame on the left. The buttons send operator commands into it.</p>
+			<div class="controls">
+				<button onclick="komento({type:'set_locale', locale:'en'})">set_locale en</button>
+				<button onclick="komento({type:'set_locale', locale:'fi'})">set_locale fi</button>
+				<button onclick="komento({type:'set_balance', balance:500})">set_balance 500</button>
+				<button onclick="komento({type:'set_muted', muted:true})">mute</button>
+				<button onclick="komento({type:'set_muted', muted:false})">unmute</button>
+				<button onclick="komento({type:'open_lobby'})">open_lobby</button>
+				<button class="gold" onclick="document.getElementById('log').textContent=''">clear log</button>
+			</div>
+			<div id="log">waiting for messages from the game frame…</div>
+		</div>
+
+		<div class="panel">
+			<h2>Round economics</h2>
+			<table>
+				<tr><td>Stake levels</td><td>1.00, 5.00 and 20.00 credits, set by the match server, all amounts handled as integer cents</td></tr>
+				<tr><td>Pot</td><td>Two equal stakes. Both players put in the same amount</td></tr>
+				<tr><td>Commission</td><td>8.0 % of the pot by default, expressed in parts per million and rounded half up to the nearest cent</td></tr>
+				<tr><td>Winner</td><td>At least 60 % of the pot after commission</td></tr>
+				<tr><td>Loser</td><td>The remainder in proportion to the ore they banked. With nothing banked, nothing paid</td></tr>
+				<tr><td>Draw</td><td>Both stakes refunded in full, no commission</td></tr>
+				<tr><td>Disconnect</td><td>The player who left loses the match, and still receives their banked share. Commission is charged normally</td></tr>
+				<tr><td>Desync</td><td>If a client state checksum differs from the server, the match is stopped as a draw and both stakes are refunded</td></tr>
+			</table>
+		</div>
+
+		<div class="panel">
+			<h2>Technical facts</h2>
+			<table>
+				<tr><td>Engine and delivery</td><td>No game engine. Written directly against the browser canvas, delivered as static files and embedded as an iframe</td></tr>
+				<tr><td>Headers</td><td>No special headers required, no service worker, no WebAssembly, no WebGL</td></tr>
+				<tr><td>Download size</td><td>62 kB of code plus about 1.2 MB of images</td></tr>
+				<tr><td>Orientation</td><td>Portrait 9:16, touch and mouse, mobile first</td></tr>
+				<tr><td>Languages</td><td>English and Finnish, switchable at runtime by the operator</td></tr>
+				<tr><td>Match length</td><td>2 min 30 s, plus 1 min 30 s overtime if the ore counts are level</td></tr>
+				<tr><td>Simulation</td><td>30 ticks per second, integer arithmetic only, identical code on client and server</td></tr>
+				<tr><td>Netcode</td><td>Lockstep on a fixed 200 ms input delay, identical for both players</td></tr>
+				<tr><td>Anti-cheat</td><td>Server validates every move and owns the team assignment, clients send state checksums every 2 seconds</td></tr>
+				<tr><td>Records per round</td><td>Input log, final checksum, settlement row with stake, pot, commission and banked ore</td></tr>
+				<tr><td>Map</td><td>Fixed and mirrored. Both players face the same rock hardness and the same distance to the ore, and nothing is hidden from either side</td></tr>
+				<tr><td>Assets</td><td>Machines and mine tiles are 3D renders produced by our own Blender scripts in this repository. All sound is synthesised at runtime. The only third-party files are CC0 surface textures, which carry no attribution requirement</td></tr>
+				<tr><td>Fairness proof</td><td>The replay viewer recomputes the match checksum in the browser and compares it against the recording, and the same check runs from the command line</td></tr>
+			</table>
+		</div>
+
+		<div class="panel">
+			<h2>Honest status</h2>
+			<p>This is a working prototype, not a certified product. Verified by running: the deterministic simulation, replay reproduction, mirror symmetry of the map, combat and cargo rules, settlement to the cent, and a full networked match between two clients that stayed in the server state for all 4500 ticks.</p>
+			<p>Not done: authentication against an operator session, a real wallet connection, load testing, balance tuning with live players, a security audit and any test-house certification. Balances shown in this build are demo credits and no money moves anywhere.</p>
+			<p class="note">Responsible gaming controls belong to the operator account layer. The game exposes <code>set_reality_check</code> so the operator can drive its own reminder policy, and ships no nagging of its own.</p>
+		</div>
+	</div>
+</div>
+</main>
+
+<footer>
+	Kaivossota prototype · 18+ · operator integration contact through the sender of this link
+</footer>
+
+<script>
+	const loki = document.getElementById('log');
+	const kehys = document.getElementById('peli');
+
+	function kirjaa(suunta, data) {
+		const aika = new Date().toISOString().substring(11, 19);
+		loki.textContent += `${aika} ${suunta} ${JSON.stringify(data)}\n`;
+		loki.scrollTop = loki.scrollHeight;
+	}
+
+	window.addEventListener('message', (e) => {
+		let data = e.data;
+		if (typeof data === 'string') {
+			try { data = JSON.parse(data); } catch (err) { return; }
+		}
+		if (!data || data.source !== 'kaivossota') return;
+		kirjaa('<-', data);
+	});
+
+	function komento(viesti) {
+		kehys.contentWindow.postMessage(viesti, '*');
+		kirjaa('->', viesti);
+	}
+</script>
+</body>
+</html>
