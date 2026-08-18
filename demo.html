@@ -149,7 +149,7 @@
 				<tr><td>Download size</td><td>62 kB of code plus about 1.2 MB of images</td></tr>
 				<tr><td>Orientation</td><td>Portrait 9:16, touch and mouse, mobile first</td></tr>
 				<tr><td>Languages</td><td>English and Finnish, switchable at runtime by the operator</td></tr>
-				<tr><td>Match length</td><td>2 min 30 s, plus 1 min 30 s overtime if the ore counts are level</td></tr>
+				<tr><td>Match length</td><td>2 min 40 s at most, plus 30 s overtime if the ore counts are level. A match also ends the moment the last ore is banked, so a decided race is not left running</td></tr>
 				<tr><td>Simulation</td><td>30 ticks per second, integer arithmetic only, identical code on client and server</td></tr>
 				<tr><td>Netcode</td><td>Lockstep on a fixed 200 ms input delay, identical for both players</td></tr>
 				<tr><td>Anti-cheat</td><td>Server validates every move and owns the team assignment, clients send state checksums every 2 seconds</td></tr>
@@ -162,7 +162,7 @@
 
 		<div class="panel">
 			<h2>Honest status</h2>
-			<p>This is a working prototype, not a certified product. Verified by running: the deterministic simulation, replay reproduction, mirror symmetry of the map, combat and cargo rules, settlement to the cent, and a full networked match between two clients that stayed in the server state for all 4500 ticks.</p>
+			<p>This is a working prototype, not a certified product. Verified by running: the deterministic simulation, replay reproduction, mirror symmetry of the map, combat and cargo rules, settlement to the cent, and a full networked match between two clients that stayed in the server state for the whole match.</p>
 			<p>Not done: authentication against an operator session, a real wallet connection, load testing, balance tuning with live players, a security audit and any test-house certification. Balances shown in this build are demo credits and no money moves anywhere.</p>
 			<p class="note">Responsible gaming controls belong to the operator account layer. The game exposes <code>set_reality_check</code> so the operator can drive its own reminder policy, and ships no nagging of its own.</p>
 		</div>
