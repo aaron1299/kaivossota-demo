@@ -1,0 +1,25 @@
+# Pitaa ottelupalvelimen hereilla.
+#
+# Renderin ilmainen taso nukahtaa noin viidentoista minuutin kayttamattomyyden
+# jalkeen ja heraa ensimmaisesta pyynnosta noin puolessa minuutissa. Kasinolle
+# jaettu linkki avataan satunnaisella hetkella, eika ensivaikutelma saa olla
+# puoli minuuttia tyhjaa ruutua.
+#
+# Tama ajo hakee terveystarkistuksen kymmenen minuutin valein. Se ajetaan
+# julkisessa repossa, jossa GitHubin ajominuutit ovat maksuttomia.
+name: Palvelin hereilla
+
+on:
+  schedule:
+    - cron: '*/10 * * * *'
+  workflow_dispatch:
+
+jobs:
+  ping:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Hae terveystarkistus
+        run: |
+          vastaus=$(curl -s --max-time 120 https://kaivossota.onrender.com/terveys)
+          echo "vastaus: $vastaus"
+          echo "$vastaus" | grep -q '"tila":"ok"' || exit 1
