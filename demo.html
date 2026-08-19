@@ -146,14 +146,15 @@
 			<table>
 				<tr><td>Engine and delivery</td><td>No game engine. Written directly against the browser canvas, delivered as static files and embedded as an iframe</td></tr>
 				<tr><td>Headers</td><td>No special headers required, no service worker, no WebAssembly, no WebGL</td></tr>
-				<tr><td>Download size</td><td>62 kB of code plus about 1.2 MB of images</td></tr>
+				<tr><td>Download size</td><td>76 kB of code plus about 1.5 MB of images</td></tr>
 				<tr><td>Orientation</td><td>Portrait 9:16, touch and mouse, mobile first</td></tr>
 				<tr><td>Languages</td><td>English and Finnish, switchable at runtime by the operator</td></tr>
-				<tr><td>Match length</td><td>2 min 40 s at most, plus 30 s overtime if the ore counts are level. A match also ends the moment the last ore is banked, so a decided race is not left running</td></tr>
+				<tr><td>Match length</td><td>2 min 40 s, plus 30 s overtime if the ore counts are level. The mine holds more ore than either player can mine in that time, so the clock decides the match and the win comes from efficiency</td></tr>
 				<tr><td>Simulation</td><td>30 ticks per second, integer arithmetic only, identical code on client and server</td></tr>
 				<tr><td>Netcode</td><td>Lockstep on a fixed 200 ms input delay, identical for both players</td></tr>
 				<tr><td>Anti-cheat</td><td>Server validates every move and owns the team assignment, clients send state checksums every 2 seconds</td></tr>
 				<tr><td>Records per round</td><td>Input log, final checksum, settlement row with stake, pot, commission and banked ore</td></tr>
+				<tr><td>Combat</td><td>A strike only lands the way the machine is facing. Head to head both sides lose hull, a hit to the side or the back does one and a half times the damage and costs the attacker nothing, and two machines cannot share a square, so a narrow tunnel can be blocked. Position, not reflex, decides a fight</td></tr>
 				<tr><td>Map</td><td>Fixed and mirrored. Both players face the same rock hardness and the same distance to the ore, and nothing is hidden from either side</td></tr>
 				<tr><td>Assets</td><td>Machines and mine tiles are 3D renders produced by our own Blender scripts in this repository. All sound is synthesised at runtime. The only third-party files are CC0 surface textures, which carry no attribution requirement</td></tr>
 				<tr><td>Fairness proof</td><td>The replay viewer recomputes the match checksum in the browser and compares it against the recording, and the same check runs from the command line</td></tr>
